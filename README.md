@@ -77,6 +77,29 @@ Client-server chat applications are foundational to real-time communication over
 ## Client:
 ```
 import socket
+
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+client.connect(("localhost", 9999))
+
+done=False
+
+while not done:
+    client.send(input("Message ").encode('utf-8'))
+    msg = client.recv(1024).decode('utf-8')
+
+    if msg == 'quit':
+        done=True
+    else:
+        print(msg)
+
+
+
+client.close()
+```
+## Server:
+```
+import socket
 from base64 import decode
 from operator import truediv
 
@@ -100,29 +123,6 @@ while not done:
 
 client.close()
 server.close()
-```
-## Server:
-```
-import socket
-
-client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-client.connect(("localhost", 9999))
-
-done=False
-
-while not done:
-    client.send(input("Message ").encode('utf-8'))
-    msg = client.recv(1024).decode('utf-8')
-
-    if msg == 'quit':
-        done=True
-    else:
-        print(msg)
-
-
-
-client.close()
 ```
 ## Program:
 ## Client:
